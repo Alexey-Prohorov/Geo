@@ -26,19 +26,33 @@
 			new ol.layer.Tile({
 				source: new ol.source.OSM()
 			}),
-			new ol.layer.Tile({
-				source: new ol.source.TileWMS({
-					projection: 'EPSG:4326',
-					url: 'https://pkk.rosreestr.ru/arcgis/rest/services/PKK6/CadastreWMS/MapServer',
-					params: {'LAYERS': '2','TILED': true}
-				})
-			})
+		new ol.layer.Tile({
+		id:"Kadastr",
+		name:"Кадастр",
+		source: new ol.source.TileWMS({
+			url: 'https://pkk.rosreestr.ru/arcgis/rest/services/PKK6/CadastreObjects/MapServer/export',
+			params: {
+				layers: "show:21",
+				dpi:32,
+				format: 'png32',
+				f:"image",
+				transparent: true,
+				bboxSR:102100,
+				imageSR:102100,
+				size:"1024,1024"
+			},
+			serverType: 'mapserver',
+			tileGrid: new ol.tilegrid.TileGrid({tileSize: [1024, 1024],extent: ol.proj.get('EPSG:3857').getExtent(),resolutions:[ 9.554, 4.777, 2.388, 1.194, 0.597, 0.298, 0.149, 0.074]}),
+		})
+	})
 		],
 		view: new ol.View({
-			center: ol.proj.fromLonLat([36.6549, 50.5938]),
+			center: ol.proj.fromLonLat([61.731699999999606, 55.23140000000014], 'EPSG:900913'),
 			zoom: 12
 			})
 		});
 	</script>
   </body>
 </html>
+
+
