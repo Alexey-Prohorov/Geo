@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+   
+    <style>
+    html, body { 
+        margin:0; 
+        padding:0; 
+        height:100%; 
+    }
+    #map { 
+        height:100%; 
+    }
+    </style>
+   <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.9.0/build/ol.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.9.0/css/ol.css">
+    <title>Тест кадастровой карты</title>
+  </head>
+  <body>
+    <div id="map" class="map"></div>
+	<script type="text/javascript">	
+		var map = new ol.Map({
+		target: 'map',
+		layers: [
+			new ol.layer.Tile({
+				source: new ol.source.OSM()
+			}),
+			new ol.layer.Tile({
+				source: new ol.source.TileWMS({
+					projection: 'EPSG:4326',
+					url: 'https://pkk.rosreestr.ru/arcgis/rest/services/PKK6/CadastreWMS/MapServer',
+					params: {'LAYERS': '2','TILED': true}
+				})
+			})
+		],
+		view: new ol.View({
+			center: ol.proj.fromLonLat([36.6549, 50.5938]),
+			zoom: 12
+			})
+		});
+	</script>
+  </body>
+</html>
